@@ -1,26 +1,24 @@
-"""
-URL configuration for siterestaurant project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('myapps.categories.urls')),
-    path('', include('myapps.dishes.urls')),
-    path('', include('myapps.orders.urls')),
-    path('', include('myapps.deliveries.urls')),
+    
+    # 1. ViewSet (categories):
+    path('api/viewset/', include('myapps.categories.urls_viewset')),
+    
+    # 2. GenericAPIView (dishes):
+    path('api/generic/', include('myapps.dishes.urls_generic')),
+    
+    # 3. API View (orders):
+    path('api/apiview/', include('myapps.orders.urls_apiview')),
+    
+    # 4. Mixins (categories):
+    path('api/mixins/', include('myapps.categories.urls_mixins')),
+    
+    # 5. APIView reescrito (orders):
+    path('api/apiview-rewrite/', include('myapps.orders.urls_apiview_rewrite')),
+    
+    # 6. APIView con decorator (deliveries):
+    path('api/decorator/', include('myapps.deliveries.urls_apiview_decorator')),
 ]

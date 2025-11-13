@@ -41,14 +41,9 @@ INSTALLED_APPS = [
     'myapps.dishes.apps.DishesConfig',
     'myapps.categories.apps.CategoriesConfig',
     'myapps.deliveries.apps.DeliveriesConfig',
-    'myapps.users.apps.UsersConfig',
-    # Django REST Framework
-    'rest_framework',
-    'corsheaders',
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -173,6 +168,11 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Django REST Framework
+INSTALLED_APPS += [
+    'rest_framework',
+    'corsheaders',
+]
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
@@ -182,22 +182,8 @@ REST_FRAMEWORK = {
 # CORS headers
 CORS_ORIGIN_ALLOW_ALL = True
 
-# JWT Configuration
-from datetime import timedelta
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'ROTATE_REFRESH_TOKENS': False,
-    'BLACKLIST_AFTER_ROTATION': True,
-}
-
-# Actualizar REST Framework para usar JWT
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',  # Cambiar a requerir autenticación
-    ]
-}
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    # ... otros middlewares que ya tienes
+]

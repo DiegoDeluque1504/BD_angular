@@ -128,3 +128,8 @@ class OrderDetail(models.Model):
         verbose_name = "detalle de orden"
         verbose_name_plural = "detalles de órdenes"
         unique_together = ('order', 'dish')
+    def get_status_display(self):
+        return dict(self.STATUS_CHOICES).get(self.status, self.status)
+
+    def get_order_type_display(self):
+        return dict(self.TYPE_CHOICES).get(self.order_type, self.order_type)
