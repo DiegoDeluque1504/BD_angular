@@ -3,6 +3,12 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # Rutas tradicionales
+    path('', include('myapps.categories.urls')),
+    path('', include('myapps.dishes.urls')),
+    path('', include('myapps.orders.urls')),
+    path('', include('myapps.deliveries.urls')),
     
     # 1. ViewSet (categories):
     path('api/viewset/', include('myapps.categories.urls_viewset')),
@@ -21,4 +27,7 @@ urlpatterns = [
     
     # 6. APIView con decorator (deliveries):
     path('api/decorator/', include('myapps.deliveries.urls_apiview_decorator')),
+
+        # ==================== DESCOMENTAR ESTO ====================
+    path('api/auth/', include('myapps.users.urls')),
 ]
